@@ -1,4 +1,5 @@
 from transformers import pipeline, Conversation
+import time
 
 class ChatbotService:
     def __init__(self, poll_service):
@@ -30,12 +31,14 @@ class ChatbotService:
             activas = [e for e in encuestas if e.estado == "activa"]
             if not activas:
                 return "No hay encuestas activas en este momento."
-            tiempo_restante = activas[0].duracion - (datetime.now() - activas[0].creada_en).seconds
-            return f"Faltan {tiempo_restante} segundos para que termine la encuesta."
+            tiempo_actual = time.time()
+            tiempo_restante = activas[0].duracion - (tiempo_actual - activas[0].creada_en.timestamp())
+            return f"Faltan {int(tiempo_restante)} segundos para que termine la encuesta."
 
         # Enviar mensaje al pipeline de IA para otros casos
         self.historial[username].append({"usuario": mensaje})
         conversation = Conversation(mensaje)  # Create a Conversation object
-        respuesta = self.chatbot(conversation).generated_responses[-1]  # Get the latest response
+        response = self.chatbot(conversation)  # Process the conversation
+        respuesta = response.generated_responses[-1]  # Get the latest response
         self.historial[username].append({"bot": respuesta})
         return respuesta

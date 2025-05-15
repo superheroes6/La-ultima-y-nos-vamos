@@ -41,6 +41,7 @@ class PollService:
         }
         token = TokenNFT(str(uuid.uuid4()), token_metadata, username)
         self.nft_service.generar_token(token)
+        self.nft_service.mint_token(username, poll_id, opcion)  # Mint token after voting
 
     def verificar_cierre_automatico(self):
         encuestas = self.encuesta_repo.cargar_todas_encuestas()
