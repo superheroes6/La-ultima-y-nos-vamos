@@ -1,0 +1,4 @@
+token_id,owner,poll_id,option,issued_at
+1,user1,poll1,Option A,2025-05-15 19:51:12.552937
+2,user1,poll2,Option B,2025-05-15 19:51:12.552937
+3,user2,poll1,Option C,2025-05-15 19:51:12.552937

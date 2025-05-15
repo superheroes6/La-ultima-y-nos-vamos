@@ -1,20 +1,16 @@
-from transformers import pipeline, Conversation
+from transformers import pipeline
 import time
 
 class ChatbotService:
     def __init__(self, poll_service):
-        self.chatbot = pipeline("conversational", model="facebook/blenderbot-400M-distill")
+        # Cambiar el pipeline a text2text-generation para mayor compatibilidad
+        self.chatbot = pipeline("text2text-generation", model="t5-small")
         self.poll_service = poll_service
         self.historial = {}  # Opcional: historial por username
 
     def responder(self, username, mensaje):
-        # Opcional: mantener historial por usuario
-        if username not in self.historial:
-            self.historial[username] = []
-
         # Verificar palabras clave relacionadas con encuestas
         if "ganando" in mensaje or "resultados" in mensaje:
-            # Llamar a PollService para obtener resultados parciales
             encuestas = self.poll_service.encuesta_repo.cargar_todas_encuestas()
             activas = [e for e in encuestas if e.estado == "activa"]
             if not activas:
@@ -37,8 +33,6 @@ class ChatbotService:
 
         # Enviar mensaje al pipeline de IA para otros casos
         self.historial[username].append({"usuario": mensaje})
-        conversation = Conversation(mensaje)  # Create a Conversation object
-        response = self.chatbot(conversation)  # Process the conversation
-        respuesta = response.generated_responses[-1]  # Get the latest response
+        respuesta = self.chatbot(mensaje, max_length=50)[0]["generated_text"]  # Use text-generation
         self.historial[username].append({"bot": respuesta})
         return respuesta
