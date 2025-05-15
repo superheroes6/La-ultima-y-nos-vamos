@@ -13,6 +13,15 @@ Con este escenario como telón de fondo, se plantea el desarrollo de una aplicac
 
 El objetivo de este ejercicio es que el alumno ponga en práctica conceptos avanzados de Programación Orientada a Objetos (POO), patrones de diseño (Observer, Factory, Strategy, etc.), arquitectura modular y buenas prácticas de ingeniería de software (persistencia desacoplada, pruebas unitarias, documentación), al tiempo que construye una plataforma atractiva y moderna.
 
+## Objetivos de aprendizaje
+Al completar este proyecto, el estudiante demostrará su capacidad para:
+
+1. Diseñar sistemas complejos empleando principios **SOLID** y patrones de diseño.
+2. Integrar tecnologías heterogéneas: **CLI**, **Gradio** (UI), **Transformers** (IA conversacional) y simulación de **NFTs**.
+3. Gestionar persistencia de datos de forma desacoplada, ya sea con archivos **JSON** o **SQLite**.
+4. Escribir pruebas unitarias con **pytest** que aseguren la fiabilidad de cada componente.
+5. Documentar y estructurar un proyecto de software de tamaño medio de manera profesional.
+
 ## Instrucciones de instalación
 Ejecuta el siguiente comando para instalar las dependencias:
 ```
